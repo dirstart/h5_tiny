@@ -10,7 +10,9 @@ var canHeight;
 
 var ane;
 var fruit;
-
+var big;
+var mx;
+var my;
 document.body.onload=game;
 
 function game()
@@ -36,6 +38,8 @@ function init()
 	ane.init();
 	fruit=new fruitObj();
 	fruit.init();
+	big=new bigObj();
+	big.init();
 }
 function  gameloop()
 {
@@ -50,5 +54,8 @@ function  gameloop()
 	ane.draw();
 	fruitMonitor();
 	fruit.draw();
+
+	ctx1.clearRect(0,0,canWidth,canHeight);
+	big.draw();
 
 }
