@@ -92,6 +92,12 @@ function fruitMonitor()
 		return;
 	}
 }
+
+//为果实添加一个死亡的状态
+fruitObj.prototype.dead=function(i)
+{
+	this.alive[i]=false;
+}
 function sendFruit()
 {
 	for(var i=0;i<fruit.num;i++)

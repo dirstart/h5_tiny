@@ -13,6 +13,9 @@ var fruit;
 var big;
 var mx;
 var my;
+var baby;
+var babyTail=[];
+var bigTail=[];
 document.body.onload=game;
 
 function game()
@@ -30,6 +33,8 @@ function init()
 	can2=document.getElementById("canvas2");//background,ane,fruits
 	ctx2=can2.getContext('2d');
 
+	can1.addEventListener('mousemove',onMouseMove,false);
+
 	bgPic.src="./src/background.jpg";
 	canWidth=can1.width;
 	canHeight=can1.height;
@@ -40,6 +45,30 @@ function init()
 	fruit.init();
 	big=new bigObj();
 	big.init();
+
+	baby=new babyObj();
+	baby.init();
+
+	mx=canWidth*0.5;
+	my=canHeight*0.5;
+
+	for(var i=0;i<8;i++)
+	{
+		babyTail[i]=new Image();
+		babyTail[i].src="./src/babyTail"+i+".png";
+	}
+	// for(var i=0;i<8;i++)
+	// {
+	// 	bigTail[i]=new Image();
+	// 	bigTail[i].src="./src/bigTail"+i+".png";
+	// }
+	for(var a=0;a<8;a++)
+	{
+		bigTail[a]=new Image();
+		bigTail[a].src="./src/bigTail"+a+".png";
+		// console.log(a);
+	}
+
 }
 function  gameloop()
 {
@@ -50,6 +79,8 @@ function  gameloop()
 	lastTime=now;
 	// console.log(deltaTime);
 
+	if(deltaTime>40)deltaTime=40;
+
 	drawBackground();
 	ane.draw();
 	fruitMonitor();
@@ -58,4 +89,16 @@ function  gameloop()
 	ctx1.clearRect(0,0,canWidth,canHeight);
 	big.draw();
 
+	baby.draw();
+
+	bigFruitsCollision();
+
+}
+function onMouseMove(e)
+{
+	if(e.offsetX||e.layerX)
+	{
+		mx=e.offsetX==undefined?e.layerX:e.offsetX;
+		my=e.offsetY==undefined?e.layerY:e.offsetY;
+	}
 }
