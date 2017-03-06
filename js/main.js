@@ -16,6 +16,14 @@ var my;
 var baby;
 var babyTail=[];
 var bigTail=[];
+var babyEye=[];
+var bigEye=[];
+var babyBody=[];
+var bigBodyBlue=[];
+var bigBodyOrange=[];
+var wave;
+
+var data;
 document.body.onload=game;
 
 function game()
@@ -68,6 +76,32 @@ function init()
 		bigTail[a].src="./src/bigTail"+a+".png";
 		// console.log(a);
 	}
+	for(var b=0;b<2;b++)
+	{
+		bigEye[b]=new Image();
+		bigEye[b].src="./src/bigEye"+b+".png";
+	}
+	for(var j=0;j<2;j++)
+	{
+		babyEye[j]=new Image();
+		babyEye[j].src="./src/babyEye"+j+".png";
+	}
+	for(var k=0;k<20;k++)
+	{
+		babyBody[k]=new Image();
+		babyBody[k].src="./src/babyFade"+k+".png";
+	}
+
+	data=new dataObj();
+	for(var m=0;m<8;m++)
+	{
+		bigBodyOrange[m]=new Image();
+		bigBodyOrange[m].src="./src/bigSwim"+m+".png";
+		bigBodyBlue[m]=new Image();
+		bigBodyBlue[m].src="./src/bigSwimBlue"+m+".png";
+	}
+	ctx1.font="30px 微软雅黑";
+	ctx1.textAlign="center";
 
 }
 function  gameloop()
@@ -92,13 +126,20 @@ function  gameloop()
 	baby.draw();
 
 	bigFruitsCollision();
+	bigBabyCollision();
+
+	data.draw();
 
 }
 function onMouseMove(e)
 {
-	if(e.offsetX||e.layerX)
+	if(!data.gameOver)
 	{
-		mx=e.offsetX==undefined?e.layerX:e.offsetX;
-		my=e.offsetY==undefined?e.layerY:e.offsetY;
+		if(e.offsetX||e.layerX)
+		{
+			mx=e.offsetX==undefined?e.layerX:e.offsetX;
+			my=e.offsetY==undefined?e.layerY:e.offsetY;
+		}		
 	}
+	
 }

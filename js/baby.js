@@ -10,14 +10,21 @@ var babyObj=function()
 	this.babyTailTimer=0;
 	this.babyTailCount=0;//这个变量用来控制动画执行到了哪一帧
 	// console.log(this.babyTailCount);
+	this.babyEyeTimer=0;
+	this.babyEyeCount=0;
+	this.babyEyeInterval=1000;
+
+	this.babyBodyTimer=0;
+	this.babyBodyCount=0;
+	this.babyBodyInterval=500;
 }
 babyObj.prototype.init=function()
 {
 	this.x=canWidth*0.5;
 	this.y=canHeight*0.5;
 	this.angle=0;
-	this.babyEye.src="./src/babyEye0.png";
-	this.babyBody.src="./src/babyFade0.png";
+	//this.babyEye.src="./src/babyEye0.png";
+	//this.babyBody.src="./src/babyFade0.png";
 	// this.babyTail.src="./src/babyTail0.png";
 	//这句话也不用了，我们采用数组来绘制会动的尾巴
 }
@@ -41,7 +48,38 @@ babyObj.prototype.draw=function()
 		//每次帧数加一之后就对计数时间取模，使得时间计数复原
 	}
 
+	this.babyEyeTimer+=deltaTime;
+	if(this.babyEyeTimer>this.babyEyeInterval)
+	{
+		this.babyEyeCount=(1+this.babyEyeCount)%2;
+		this.babyEyeTimer=0;
+
+		if(this.babyEyeCount==0)
+		{
+			this.babyEyeInterval=Math.random()*1000+2000;
+		}
+		else
+		{
+			this.babyEyeInterval=200;
+		}
+	}
+
+	this.babyBodyTimer+=deltaTime;
+	if(this.babyBodyTimer>this.babyBodyInterval)
+	{
+		this.babyBodyCount=1+this.babyBodyCount;
+		this.babyBodyTimer=this.babyBodyCount%this.babyBodyInterval;
+		if(this.babyBodyCount>19)
+		{
+			this.babyBodyCount=19;
+			// console.log("game over");
+			data.gameOver=true;
+		}
+	}
+
 	this.babyTail=babyTail[this.babyTailCount];
+	this.babyEye=babyEye[this.babyEyeCount];
+	this.babyBody=babyBody[this.babyBodyCount];
 	ctx1.save();
 	ctx1.translate(this.x,this.y);
 	ctx1.rotate(this.angle);

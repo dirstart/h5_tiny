@@ -1,0 +1,4 @@
+var waveObj=function()
+{
+	
+}
