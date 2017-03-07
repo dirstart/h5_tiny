@@ -22,8 +22,10 @@ var babyBody=[];
 var bigBodyBlue=[];
 var bigBodyOrange=[];
 var wave;
-
+var halo;
 var data;
+var dust;
+var dustPic=[];
 document.body.onload=game;
 
 function game()
@@ -47,6 +49,7 @@ function init()
 	canWidth=can1.width;
 	canHeight=can1.height;
 
+
 	ane=new aneObj();
 	ane.init();
 	fruit=new fruitObj();
@@ -57,13 +60,27 @@ function init()
 	baby=new babyObj();
 	baby.init();
 
+	wave=new waveObj();
+	wave.init();
+
+	halo=new haloObj();
+	halo.init();
+
+	dust=new dustObj();
+	dust.init();
+	for(var i=0;i<7;i++)
+	{
+		dustPic[i]=new Image();
+		dustPic[i].src="./src/dust"+i+".png";
+	}
+
 	mx=canWidth*0.5;
 	my=canHeight*0.5;
 
-	for(var i=0;i<8;i++)
+	for(var o=0;o<8;o++)
 	{
-		babyTail[i]=new Image();
-		babyTail[i].src="./src/babyTail"+i+".png";
+		babyTail[o]=new Image();
+		babyTail[o].src="./src/babyTail"+o+".png";
 	}
 	// for(var i=0;i<8;i++)
 	// {
@@ -129,6 +146,9 @@ function  gameloop()
 	bigBabyCollision();
 
 	data.draw();
+	wave.draw();
+	halo.draw();
+	dust.draw();
 
 }
 function onMouseMove(e)

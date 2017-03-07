@@ -8,6 +8,7 @@ var fruitObj=function()
 	this.fruitType=[];
 	this.orange=new Image();
 	this.blue=new Image();
+	this.aneNo=[];
 }
 
 fruitObj.prototype.num=30;
@@ -18,6 +19,7 @@ fruitObj.prototype.init=function()
 		this.alive[i]=false;
 		this.x[i]=0;
 		this.y[i]=0;
+		this.aneNo[i]=0;
 		this.spd[i]=Math.random()*0.017+0.003;
 		// this.born(i);
 		this.fruitType[i]="";
@@ -44,13 +46,19 @@ fruitObj.prototype.draw=function()
 		{
 			if(this.l[i]<=14)
 			{
+				var No=this.aneNo[i];
+				this.x[i]=ane.headx[No];
+				this.y[i]=ane.heady[No];
 				this.l[i]+=this.spd[i]*deltaTime;
+				// ctx2.drawImage(pic,this.x[i]-this.l[i]*0.5,this.y[i]-this.l[i]*0.5,this.l[i],this.l[i]);
 			}
 			else
 			{
 				this.y[i]-=this.spd[i]*7*deltaTime;
+				//ctx2.drawImage(pic,this.x[i]-this.l[i]*0.5,this.y[i]-this.l[i]*0.5,this.l[i],this.l[i]);
 			}
 			ctx2.drawImage(pic,this.x[i]-this.l[i]*0.5,this.y[i]-this.l[i]*0.5,this.l[i],this.l[i]);
+			
 			if(this.y[i]<10)
 			{
 				this.alive[i]=false;
@@ -61,13 +69,11 @@ fruitObj.prototype.draw=function()
 fruitObj.prototype.born=function(i)
 {
 	//random select an ane,we need mark the position of  ane.   we found a suitable place to settle down.
-	var aneId=Math.floor(Math.random()*ane.num);
-	this.x[i]=ane.x[aneId];
-	this.y[i]=canHeight-ane.len[aneId];
+	this.aneNo[i]=Math.floor(Math.random()*ane.num);
 	this.l[i]=0;
 	this.alive[i]=true;
 	var ran=Math.random();
-	if(ran<0.3)
+	if(ran<0.3)//根据颜色决定组合果实的颜色
 	{
 		this.fruitType[i]="blue";
 	}

@@ -27,6 +27,7 @@ function bigFruitsCollision()
 					{
 						data.double=2;
 					}
+					wave.born(fruit.x[i],fruit.y[i]);
 				}
 			}
 		}	
@@ -45,6 +46,8 @@ function bigBabyCollision()
 			baby.babyBodyCount=0;
 			data.addScore();
 			data.reset();
+			//draw halo
+			halo.born(baby.x,baby.y);	
 		}	
 	}
 	
